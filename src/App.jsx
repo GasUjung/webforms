@@ -32,6 +32,7 @@ const App = () => {
     username: "",
     password: ""
   })
+  const [isChecked, setIsChecked] = React.useState(false);
 
 
   const [formData, setFormData] = useState({
@@ -46,6 +47,7 @@ const App = () => {
     tempatLahir: "",
     tanggalLahir: "",
     punyaIstri: "",
+    statusIstri: "",
     posAnak: "",
     jumlahPutra: 0,
     jumlahSaudara: "",
@@ -54,16 +56,16 @@ const App = () => {
     nik: "",
     pekerjaan: "",
     jenisKelamin: "",
-    provinsiDomisili: "",
-    kabupatenDomisili: "",
-    kecamatanDomisili: "",
-    kelurahanDomisili: "",
-    alamatDomisili: "",
     provinsiKTP: "",
     kabupatenKTP: "",
     kecamatanKTP: "",
     kelurahanKTP: "",
     alamatKTP: "",
+    provinsiDomisili:  "",
+    kabupatenDomisili:  "",
+    kecamatanDomisili: "",
+    kelurahanDomisili:  "",
+    alamatDomisili:  "",
     statusPerkawinan: "",
     pendidikanTerakhir: "",
     statusPendidikan: "",
@@ -436,6 +438,10 @@ const App = () => {
 
 
 
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
 
   const handleKecamatanKTPChange = (e, index) => {
     const kabKotaId = e.target.value;
@@ -546,11 +552,11 @@ const App = () => {
   }
 
 
-  const formatLabel = (key) => {
-    return key
-      .replace(/([A-Z])/g, " $1") // Tambahkan spasi sebelum huruf kapital
-      .replace(/^./, (str) => str.toUpperCase()); // Kapitalisasi huruf pertama
-  };
+  // const formatLabel = (key) => {
+  //   return key
+  //     .replace(/([A-Z])/g, " $1") // Tambahkan spasi sebelum huruf kapital
+  //     .replace(/^./, (str) => str.toUpperCase()); // Kapitalisasi huruf pertama
+  // };
 
 
   const handleSubmit = async (e) => {
@@ -592,7 +598,6 @@ const App = () => {
       formList[0].provinsiBertemu
       }\n\nHari/Tanggal: ${formattedDate}\nJam: ${formList[0].jamBertemu} WIB`;
 
-      const footer = "Perkembangan selanjutnya akan di laporkan kembali."
     const formattedData = formList.map((data, index) => {
 
       // const tanggal = new Date(data.tanggalBertemu);
@@ -611,9 +616,11 @@ const App = () => {
 
       console.log('jmlindexs', formList.length);
       
-      return index == 0 ? headerMessage + "\n" + `\nBertemu An :\n\n${index + 1}.Nama:*${data.namaLengkap}* ${data.agama == "Islam" ? data.jenisKelamin == "Laki-Laki" ? "Bin" : "Binti" : ""} ${data.agama == "Islam" ? data.statusBapak == "Meninggal" ? data.namaBapak + "(Alm)" : data.namaBapak : ""}\nNIK: ${data.nik}\nTTL: ${data.tempatLahir + ", " + formattedTglLahir}\nAgama: ${data.agama}\nPekerjaan: ${data.pekerjaan}\nJenis Kelamin: ${data.jenisKelamin}\nAlamat Domisili: ${data.alamatDomisili + " " + data.kelurahanDomisili + " Kec." + data.kecamatanDomisili + " " + data.kabupatenDomisili + " Provinsi " + data.provinsiDomisili}\nAlamat KTP: ${data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nPendidikan Terakhir: ${data.pendidikanTerakhir + " (" + `${data.statusPendidikan}` + ")"}\nStatus Perkawinan: ${data.statusPerkawinan}\nIstri: ${data.punyaIstri}\nPutra: ${data.jumlahPutra}\nPutri: ${data.jumlahPutri}\nPosisi Anak dalam Keluarga: ${data.posAnak} dari ${data.jumlahSaudara} \nNama Bapak: ${data.namaBapak} ${data.statusBapak == "Meninggal" ? "(Alm)" : ""}\nNama Ibu: ${data.namaIbu} ${data.statusIbu == "Meninggal" ? "(Almh)" : ""}\n\n` + `${formList.length == 1 ? "Perkembangan selanjutnya akan di laporkan kembali." : ""}`
-        : `${index + 1}.Nama:*${data.namaLengkap}* ${data.agama == "Islam" ? data.jenisKelamin == "Laki-Laki" ? "Bin" : "Binti" : ""} ${data.agama == "Islam" ? data.statusBapak == "Meninggal" ? data.namaBapak + "(Alm)" : data.namaBapak : ""}\nNIK: ${data.nik}\nTTL: ${data.tempatLahir + ", " + formattedTglLahir}\nAgama: ${data.agama}\nPekerjaan: ${data.pekerjaan}\nJenis Kelamin: ${data.jenisKelamin}\nAlamat Domisili: ${data.alamatDomisili + " " + data.kelurahanDomisili + " Kec." + data.kecamatanDomisili + " " + data.kabupatenDomisili + " Provinsi " + data.provinsiDomisili}\nAlamat KTP: ${data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nPendidikan Terakhir: ${data.pendidikanTerakhir + " (" + `${data.statusPendidikan}` + ")"}\nStatus Perkawinan: ${data.statusPerkawinan}\nIstri: ${data.punyaIstri}\nPutra: ${data.jumlahPutra}\nPutri: ${data.jumlahPutri}\nPosisi Anak dalam Keluarga: ${data.posAnak} dari ${data.jumlahSaudara}\nNama Bapak: ${data.namaBapak} ${data.statusBapak == "Meninggal" ? "(Alm)" : ""}\nNama Ibu: ${data.namaIbu} ${data.statusIbu == "Meninggal" ? "(Almh)" : ""}\n\nPerkembangan selanjutnya akan di laporkan kembali.`;
-    });
+      return index == 0 ? headerMessage + "\n" + `\nBertemu An :\n\n${index + 1}.Nama:*${data.namaLengkap}* ${data.agama == "Islam" ? data.jenisKelamin == "Laki-Laki" ? "Bin" : "Binti" : ""} ${data.agama == "Islam" ? data.statusBapak == "Meninggal" ? data.namaBapak + " (Alm)" : data.namaBapak : ""}\nNIK: ${data.nik}\nTTL: ${data.tempatLahir + ", " + formattedTglLahir}\nAgama: ${data.agama}\nPekerjaan: ${data.pekerjaan}\nJenis Kelamin: ${data.jenisKelamin}\nAlamat Domisili: ${isChecked == false ? data.alamatDomisili + " " + data.kelurahanDomisili + " Kec." + data.kecamatanDomisili + " " + data.kabupatenDomisili + " Provinsi " + data.provinsiDomisili : data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nAlamat KTP: ${data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nPendidikan Terakhir: ${data.pendidikanTerakhir + " (" + `${data.statusPendidikan}` + ")"}\nStatus Perkawinan: ${data.statusPerkawinan}\nIstri: ${data.punyaIstri} ${data.punyaIstri == "Meninggal" ? " (Almh)" : ""}\nPutra: ${data.jumlahPutra}\nPutri: ${data.jumlahPutri}\nPosisi Anak dalam Keluarga: ${data.posAnak} dari ${data.jumlahSaudara} \nNama Bapak: ${data.namaBapak} ${data.statusBapak == "Meninggal" ? " (Alm)" : ""}\nNama Ibu: ${data.namaIbu} ${data.statusIbu == "Meninggal" ? " (Almh)" : ""}\n\n` + `${formList.length == 1 ? "Perkembangan selanjutnya akan di laporkan kembali." : ""}`
+        : `${index + 1}.Nama:*${data.namaLengkap}* ${data.agama == "Islam" ? data.jenisKelamin == "Laki-Laki" ? "Bin" : "Binti" : ""} ${data.agama == "Islam" ? data.statusBapak == "Meninggal" ? data.namaBapak + " (Alm)" : data.namaBapak : ""}\nNIK: ${data.nik}\nTTL: ${data.tempatLahir + ", " + formattedTglLahir}\nAgama: ${data.agama}\nPekerjaan: ${data.pekerjaan}\nJenis Kelamin: ${data.jenisKelamin}\nAlamat Domisili: ${isChecked == false ? data.alamatDomisili + " " + data.kelurahanDomisili + " Kec." + data.kecamatanDomisili + " " + data.kabupatenDomisili + " Provinsi " + data.provinsiDomisili : data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nAlamat KTP: ${data.alamatKTP + " " + data.kelurahanKTP + " Kec." + data.kecamatanKTP + " " + data.kabupatenKTP + " Provinsi " + data.provinsiKTP}\nPendidikan Terakhir: ${data.pendidikanTerakhir + " (" + `${data.statusPendidikan}` + ")"}\nStatus Perkawinan: ${data.statusPerkawinan}\nIstri: ${data.punyaIstri} ${data.punyaIstri == "Meninggal" ? " (Almh)" : ""}\nPutra: ${data.jumlahPutra}\nPutri: ${data.jumlahPutri}\nPosisi Anak dalam Keluarga: ${data.posAnak} dari ${data.jumlahSaudara}\nNama Bapak: ${data.namaBapak} ${data.statusBapak == "Meninggal" ? " (Alm)" : ""}\nNama Ibu: ${data.namaIbu} ${data.statusIbu == "Meninggal" ? " (Almh)" : ""}\n\nPerkembangan selanjutnya akan di laporkan kembali.`;
+    
+    
+      });
 
 
     const jsonst = formattedData.join("\n");
@@ -660,6 +667,17 @@ const App = () => {
             "jumlahPutri": item.jumlahPutri, // Data statis
             "posAnak": `${item.posAnak} dari ${item.jumlahSaudara}`, // Data stati
             "alamatDomisili":
+            isChecked == true ?
+            item.alamatKTP +
+            " " +
+            item.kelurahanKTP +
+            " Kec." +
+            item.kecamatanKTP +
+            " " +
+            item.kabupatenKTP +
+            " Provinsi " +
+            item.provinsiKTP // Data statis
+            :
               item.alamatDomisili +
               " " +
               item.kelurahanDomisili +
@@ -1020,6 +1038,25 @@ const App = () => {
                />
 
 
+<FormControl fullWidth margin="normal">
+                 <InputLabel>Status Istri</InputLabel>
+                 <Select
+                   name="statusIstri"
+                   value={formData.statusIstri}
+                   onChange={(e) => handleChange(index, e)}
+                 >
+                   {statusOrangTuaOptions.map((status, index) => (
+                     <MenuItem key={index} value={status}>
+                       {status}
+                     </MenuItem>
+                   ))}
+
+                 </Select>
+               </FormControl>
+
+
+
+
                <TextField
                  label="Jumlah Putra"
                  type="number"
@@ -1040,7 +1077,7 @@ const App = () => {
                  fullWidth
                  margin="normal"
                />
-               <FormControl fullWidth margin="normal">
+               {/* <FormControl fullWidth margin="normal">
                  <InputLabel>Posisi Anak dalam Keluarga</InputLabel>
                  <Select
                    name="posAnak"
@@ -1052,7 +1089,17 @@ const App = () => {
                    <MenuItem value="Anak Ketiga">Anak Ketiga</MenuItem>
                    <MenuItem value="Anak Terakhir">Anak Terakhir</MenuItem>
                  </Select>
-               </FormControl>
+               </FormControl> */}
+
+               <TextField
+                 label="Posisi Anak dalam Keluarga"
+                 type="text"
+                 name="posAnak"
+                 value={formData.posAnak}
+                 onChange={(e) => handleChange(index, e)}
+                 fullWidth
+                 margin="normal"
+               />
 
                {/* <FormControl fullWidth margin="normal">
 <InputLabel>Jumlah Saudara</InputLabel>
@@ -1082,7 +1129,21 @@ const App = () => {
                  Alamat Domisili
                </Typography>
 
-               <FormControl fullWidth margin="normal">
+               <FormControlLabel
+        control={
+          <Checkbox
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            color="primary"
+          />
+        }
+        label="Domisili saya sesuai KTP"
+      />
+
+      {isChecked == false &&
+      <>
+
+<FormControl fullWidth margin="normal">
                  {/* Pilih Provinsi Domisili */}
                  <InputLabel>Provinsi</InputLabel>
                  <Select
@@ -1102,9 +1163,6 @@ const App = () => {
                    ))}
                  </Select>
                </FormControl>
-
-
-
                {formData.provinsiDomisili !== "" &&
                  <FormControl fullWidth margin="normal">
                    <InputLabel>Kabupaten / Kota</InputLabel>
@@ -1183,6 +1241,13 @@ const App = () => {
                  fullWidth
                  margin="normal"
                />
+      </>
+      }
+            
+
+
+
+             
 
 
                <Typography variant="subtitle1" sx={{ mt: 2 }}>
